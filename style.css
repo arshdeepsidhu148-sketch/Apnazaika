@@ -1,0 +1,8 @@
+body {font-family: Arial; background:#fff3e0; margin:0; text-align:center;}
+header {background:#d84315; color:white; padding:15px;}
+.login-box, #sellerPanel {background:white; margin:20px auto; padding:20px; width:80%; max-width:400px; border-radius:15px; box-shadow:0 0 10px rgba(0,0,0,0.2);}
+input, button {display:block; width:90%; margin:10px auto; padding:10px; border-radius:8px; border:1px solid #ccc;}
+button {background:#d84315; color:white; border:none;}
+button:hover {background:#b71c1c;}
+.food-list {margin-top:20px;}
+.food-item {background:#ffe0b2; margin:10px; padding:10px; border-radius:10px;}
