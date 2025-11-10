@@ -1,43 +1,40 @@
-cat > seller.html <<'HTML'
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seller / Admin</title>
-<style>body{font-family:Arial;background:#fffaf3;margin:0;padding:12px}input,button,textarea{padding:8px;margin:6px 0;width:100%} .row{max-width:600px;margin:auto}</style>
-</head><body>
-<h2 style="text-align:center">Seller / Admin</h2>
-<div class="row">
-  <div id="loginBox">
-    <p>Enter admin password:</p>
-    <input id="pw" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <p style="font-size:13px;color:#666">(default password: <b>apnazaika123</b>)</p>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apna Zaika - Seller Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🍴 Apna Zaika - Seller Dashboard</h1>
+  </header>
 
-  <div id="app" style="display:none">
-    <h3>Add / Edit Item</h3>
-    <input id="name" placeholder="Dish name">
-    <input id="price" placeholder="Price (number)">
-    <input id="img" placeholder="Image URL">
-    <button onclick="addItem()">Save Item</button>
-    <h3>Current Items</h3>
-    <div id="list"></div>
-    <p style="color:#666">Note: This simple version saves items in your browser (localStorage). To make multi-seller & global, use Firebase (I will give code).</p>
-    <button onclick="logout()">Logout</button>
-  </div>
-</div>
+  <main class="seller-container">
+    <h2>Create Your Shop Account</h2>
 
-<script>
-const ADMIN_PW = 'apnazaika123'; // change if you want
-let items = JSON.parse(localStorage.getItem('apn_items') || '[]');
-function login(){ if(document.getElementById('pw').value===ADMIN_PW){ document.getElementById('loginBox').style.display='none'; document.getElementById('app').style.display='block'; renderList(); } else alert('Wrong password'); }
-function logout(){ document.getElementById('pw').value=''; document.getElementById('app').style.display='none'; document.getElementById('loginBox').style.display='block'; }
-function addItem(){
-  const name=document.getElementById('name').value.trim(); const price=Number(document.getElementById('price').value); const img=document.getElementById('img').value.trim();
-  if(!name || !price){ alert('Fill name and price'); return; }
-  const id = Date.now();
-  items.push({id,name,price,img: img || 'https://i.ibb.co/6J0Y9mC/biryani.jpg'});
-  localStorage.setItem('apn_items', JSON.stringify(items)); renderList(); document.getElementById('name').value='';document.getElementById('price').value='';document.getElementById('img').value='';
-}
-function remove(id){ items = items.filter(i=>i.id!==id); localStorage.setItem('apn_items', JSON.stringify(items)); renderList(); }
-function renderList(){ const box=document.getElementById('list'); box.innerHTML=''; items.forEach(i=>{ const d=document.createElement('div'); d.style.padding='8px'; d.style.border='1px solid #eee'; d.style.marginBottom='8px'; d.innerHTML= i.name+' — ₹'+i.price + ' <button onclick="remove('+i.id+')">Delete</button>'; box.appendChild(d); }); }
-</script>
-</body></html>
-HTML
+    <div class="seller-form">
+      <input type="text" id="shopName" placeholder="Enter your shop name">
+      <input type="text" id="sellerName" placeholder="Your name">
+      <input type="number" id="sellerPhone" placeholder="Mobile number">
+      <input type="text" id="sellerAddress" placeholder="Full Address">
+      <button id="createAccount">Create Account</button>
+    </div>
+
+    <hr>
+
+    <h3>Upload Your Food Products</h3>
+    <div class="product-upload">
+      <input type="text" id="foodName" placeholder="Food name">
+      <input type="number" id="foodPrice" placeholder="Price (₹)">
+      <input type="url" id="foodImg" placeholder="Image URL">
+      <button id="uploadProduct">Upload Product</button>
+    </div>
+
+    <div id="sellerProducts"></div>
+  </main>
+
+  <script src="seller.js"></script>
+</body>
+</html>
